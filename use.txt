@@ -1,0 +1,5 @@
+python whisper.py -m openai/whisper-large-v3 -P 4815 -H 163.13.202.128
+
+curl -s http://163.13.202.128:4815/v1/audio/transcriptions -H "Content-Type: multipart/form-data" -F model="openai/whisper-large-v3" -F file="@/home/b310-21/project/Whispertales_voice/recording/user_674c8887470166521ed44bda/Coco/Coco.wav" -F response_format=text
+
+curl -s http://163.13.202.128:4815/v1/audio/transcriptions -F model="openai/whisper-large-v3" -F file="@/home/b310-21/project/Whispertales_voice/recording/user_674c8887470166521ed44bda/Coco/Coco.wav"

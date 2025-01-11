@@ -100,6 +100,29 @@ async def transcriptions(
 
     return await whisper(file, response_format, **kwargs)
 
+# 新增請求模型
+class ZhuyinRequest(BaseModel):
+    text: str
+
+'''
+JSON 
+{
+    "text": "兔兔拿者他的大羅波，開心的去上學"
+}
+'''
+@app.post("/makezhuyin")
+def makezhuyin(request: ZhuyinRequest):
+    try:
+        result_zhuyin = pinyin(request.text, style=Style.BOPOMOFO)
+        return JSONResponse(content={
+            "original": request.text,
+            "zhuyin": result_zhuyin
+        })
+    except Exception as e:
+        return JSONResponse(
+            status_code=400,
+            content={"error": f"轉換注音失敗：{str(e)}"}
+        )
 
 @app.post("/v1/audio/translations")
 async def translations(
